@@ -47,8 +47,35 @@ const getMyProfile = catchAsync(async (req, res) => {
   });
 });
 
+const updateMyProfile = catchAsync(async (req, res) => {
+  const userId = req.user?.id;
+  const updateData = req.body;
+
+  const result = await UserService.updateMyProfileIntoDB(userId, updateData);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "User profile updated successfully",
+    data: result,
+  });
+});
+
+const createTrainer = catchAsync(async (req, res) => {
+  const result = await UserService.createTrainerInDB(req.body);
+
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.CREATED,
+    message: "Trainer created successfully",
+    data: result,
+  });
+});
+
 export const UserController = {
   getUser,
   getUserById,
   getMyProfile,
+  updateMyProfile,
+  createTrainer,
 };
