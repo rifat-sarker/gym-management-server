@@ -22,6 +22,28 @@ const CreateScheduleZodSchema = z.object({
   }),
 });
 
+const UpdateScheduleZodSchema = z.object({
+  body: z.object({
+    date: z
+      .string()
+      .optional()
+      .refine((val) => (val ? !isNaN(Date.parse(val)) : true), {
+        message: "Invalid date format",
+      }),
+    startTime: z
+      .string()
+      .regex(timeRegex, "Start time must be in HH:mm:ss format")
+      .optional(),
+    endTime: z
+      .string()
+      .regex(timeRegex, "End time must be in HH:mm:ss format")
+      .optional(),
+    trainerId: z.string().optional(),
+    createdBy: z.string().optional(), 
+  }),
+});
+
 export const ScheduleValidation = {
   CreateScheduleZodSchema,
+  UpdateScheduleZodSchema,
 };

@@ -15,6 +15,13 @@ router.post(
 );
 
 router.get("/", auth(Role.ADMIN), ScheduleController.getAllSchedules);
-
+router.get("/:id", auth(Role.ADMIN), ScheduleController.getScheduleById);
+router.patch(
+  "/:id",
+  auth(Role.ADMIN),
+  validateRequest(ScheduleValidation.UpdateScheduleZodSchema),
+  ScheduleController.updateSchedule
+);
+router.delete("/:id", auth(Role.ADMIN), ScheduleController.deleteSchedule);
 
 export const ScheduleRoutes = router;
