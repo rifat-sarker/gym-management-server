@@ -23,9 +23,6 @@ const auth = (...roles: string[]) => {
         config.jwt.jwt_scret as string
       ) as JwtPayload;
 
-      console.log("Verified user:", varifiedUser);
-      console.log("Allowed roles:", roles);
-
 
       if (roles.length && !roles.includes(varifiedUser.role)) {
         throw new AppError(httpStatus.FORBIDDEN, "You are Forbidden!!");

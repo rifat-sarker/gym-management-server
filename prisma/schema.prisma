@@ -34,7 +34,7 @@ model Schedule {
   startTime DateTime
   endTime   DateTime
   trainerId String
-  // admin who created the schedule
+
   createdBy String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -42,7 +42,7 @@ model Schedule {
   trainer  User      @relation("TrainerSchedules", fields: [trainerId], references: [id])
   bookings Booking[]
 
-  // prevent overlapping schedules for the same trainer
+
   @@unique([date, startTime])
   @@index([date, startTime, trainerId])
   @@map("schedules")
@@ -57,7 +57,7 @@ model Booking {
   trainee  User     @relation("TraineeBookings", fields: [traineeId], references: [id])
   schedule Schedule @relation(fields: [scheduleId], references: [id])
 
-  // prevent duplicate bookings for the same trainee and schedule
+ 
   @@unique([traineeId, scheduleId])
   @@map("bookings")
 }
