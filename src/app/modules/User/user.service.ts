@@ -8,9 +8,28 @@ const getUsersFromDB = async () => {
 const getUserByIdFromDB = async (id: string) => {
   const result = await prisma.user.findUnique({
     where: { id },
+    select: {
+      id: true,
+      name: true,
+      email: true,
+      role: true,
+      createdAt: true,
+      updatedAt: true,
+    },
   });
 
   return result;
 };
 
-export const UserService = { getUsersFromDB, getUserByIdFromDB };
+const getMyProfileFromDB = async (userId: string) => {
+  const result = await prisma.user.findUnique({
+    where: { id: userId },
+  });
+  return result;
+};
+
+export const UserService = {
+  getUsersFromDB,
+  getUserByIdFromDB,
+  getMyProfileFromDB,
+};
