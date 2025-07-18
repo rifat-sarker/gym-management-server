@@ -3,8 +3,6 @@ import AppError from "../../errors/AppError";
 import prisma from "../../utils/prisma";
 import { Role, Schedule } from "@prisma/client";
 
-
-
 const createScheduleIntoDB = async (payload: Schedule, createdBy: string) => {
   const { date, startTime, endTime, trainerId } = payload;
 
@@ -16,7 +14,7 @@ const createScheduleIntoDB = async (payload: Schedule, createdBy: string) => {
     );
   }
 
-  const dateOnlyString = new Date(date).toISOString().split("T")[0]; 
+  const dateOnlyString = new Date(date).toISOString().split("T")[0];
 
   const startDateTime = new Date(`${dateOnlyString}T${startTime}Z`);
   const endDateTime = new Date(`${dateOnlyString}T${endTime}Z`);
@@ -88,7 +86,6 @@ const getScheduleById = async (id: string) => {
   return result;
 };
 
-
 const updateSchedule = async (id: string, payload: Schedule) => {
   const { date, startTime, endTime, trainerId } = payload;
 
@@ -105,7 +102,7 @@ const updateSchedule = async (id: string, payload: Schedule) => {
     );
   }
 
-  const dateOnlyString = new Date(date).toISOString().split("T")[0]; 
+  const dateOnlyString = new Date(date).toISOString().split("T")[0];
 
   const startDateTime = new Date(`${dateOnlyString}T${startTime}Z`);
   const endDateTime = new Date(`${dateOnlyString}T${endTime}Z`);
@@ -151,8 +148,6 @@ const updateSchedule = async (id: string, payload: Schedule) => {
 
   return updatedSchedule;
 };
-
-
 
 const deleteSchedule = async (id: string) => {
   const result = await prisma.schedule.delete({ where: { id } });
