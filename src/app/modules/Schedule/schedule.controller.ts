@@ -6,7 +6,7 @@ import { ScheduleService } from "./schedule.service";
 const createSchedule = catchAsync(async (req, res) => {
   const scheduleData = req.body;
   const createdByUserId = req.user.id;
-  
+
   const result = await ScheduleService.createScheduleIntoDB(
     scheduleData,
     createdByUserId
@@ -20,6 +20,18 @@ const createSchedule = catchAsync(async (req, res) => {
   });
 });
 
+const getAllSchedules = catchAsync(async (req, res) => {
+  const result = await ScheduleService.getAllSchedules();
+
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: "Schedules retrieved successfully",
+    data: result,
+  });
+});
+
 export const ScheduleController = {
   createSchedule,
+  getAllSchedules,
 };
