@@ -11,4 +11,10 @@ router.post(
   AuthController.registerTrainee
 );
 
+router.post(
+  "/login",
+  validateRequest(AuthValidation.loginUserSchema),
+  AuthController.loginUser
+);
+
 export const AuthRoutes = router;

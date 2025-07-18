@@ -51,6 +51,60 @@ const registerTraineeInToDB = async (payload: User) => {
   return accessToken;
 };
 
+const loginUserIntoDB = async (payload: User) => {
+  if (!payload.email || !payload.password) {
+    throw new AppError(
+      httpStatus.NON_AUTHORITATIVE_INFORMATION,
+      "Missing required fields"
+    );
+  }
+
+  const isExistUser = await prisma.user.findFirst({
+    where: { email: payload.email },
+  });
+
+  if (!isExistUser) {
+    throw new AppError(
+      httpStatus.BAD_REQUEST,
+      "Invalid email or password please try again"
+    );
+  }
+
+  const checkPassword = await bcrypt.compare(
+    payload.password,
+    isExistUser?.password
+  );
+  if (!checkPassword) {
+    throw new AppError(
+      httpStatus.UNAUTHORIZED,
+      "Invalid email or password please try again"
+    );
+  }
+
+  const jwtPayload = {
+    id: isExistUser.id,
+    email: isExistUser.email,
+    role: isExistUser.role,
+  };
+  const accessToken = createToken(
+    jwtPayload,
+    config.jwt.jwt_scret as string,
+    config.jwt.expires_in as string
+  );
+  const refeshToken = createToken(
+    jwtPayload,
+    config.jwt.refresh_token_secret as string,
+    config.jwt.refresh_token_expires_in as string
+  );
+
+  const result = {
+    accessToken,
+    refeshToken,
+  };
+  return result;
+};
+
 export const AuthService = {
   registerTraineeInToDB,
+  loginUserIntoDB,
 };

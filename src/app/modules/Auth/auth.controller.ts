@@ -15,6 +15,24 @@ const registerTrainee = catchAsync(async (req, res) => {
   });
 });
 
+const loginUser = catchAsync(async (req, res) => {
+  const result = await AuthService.loginUserIntoDB(req.body);
+
+  res.cookie("refeshToken", result.refeshToken, {
+    secure: false,
+    httpOnly: true,
+  });
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.CREATED,
+    message: "User login successfully",
+    data: {
+      accessToken: result.accessToken,
+    },
+  });
+});
+
 export const AuthController = {
   registerTrainee,
+  loginUser,
 };
