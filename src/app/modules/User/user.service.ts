@@ -5,4 +5,12 @@ const getUsersFromDB = async () => {
   return result;
 };
 
-export const UserService = { getUsersFromDB };
+const getUserByIdFromDB = async (id: string) => {
+  const result = await prisma.user.findUnique({
+    where: { id },
+  });
+
+  return result;
+};
+
+export const UserService = { getUsersFromDB, getUserByIdFromDB };
