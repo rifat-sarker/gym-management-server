@@ -91,8 +91,8 @@ src/
 
 ```json
 {
-  "email": "admin@example.com",
-  "password": "admin123"
+  "email": "rifatswd@gmail.com",
+  "password": "Rifat1234"
 }
 ```
 
