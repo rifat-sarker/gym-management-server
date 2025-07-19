@@ -43,9 +43,9 @@ This system allows admins to manage trainers and schedules, trainees to book and
 
 ## 📊 Relational Diagram
 
-![Relational Diagram](https://i.imgur.com/SmXvxWy.png)
+![Relational Diagram](https://res.cloudinary.com/dunfiptfi/image/upload/v1752912162/gym-management_2_let1fu.png)
 
-> 🔗 If image not visible, [click here to view](https://i.imgur.com/SmXvxWy.png)
+> 🔗 If image not visible, [click here to view](https://dbdiagram.io/d/gym-management-6879063ef413ba350864c97e)
 
 ---
 
@@ -65,23 +65,7 @@ This system allows admins to manage trainers and schedules, trainees to book and
 
 ## 🗂️ Project Structure
 
-src/
-├── app/
-│ ├── config/
-│ ├── errors/
-│ ├── middlewares/
-│ ├── modules/
-│ │ ├── Auth/
-│ │ ├── Booking/
-│ │ ├── Schedule/
-│ │ └── User/
-│ ├── routes/
-│ ├── types/
-│ └── utils/
-├── prisma/
-├── dist/
-├── .vercel/
-
+<pre> ## 📁 Project Structure ```bash src/ ├── app/ │ ├── config/ │ ├── errors/ │ ├── middlewares/ │ ├── modules/ │ │ ├── Auth/ │ │ ├── Booking/ │ │ ├── Schedule/ │ │ └── User/ │ ├── routes/ │ ├── types/ │ └── utils/ ├── prisma/ ├── dist/ ├── .vercel/ ``` </pre>
 
 
 ---
@@ -132,6 +116,8 @@ src/
 
 
 ## 🧱 Database Schema (Prisma)
+
+```prisma
 model User {
   id        String     @id @default(uuid())
   name      String
@@ -147,19 +133,18 @@ model User {
 }
 
 model Schedule {
-  id        String   @id @default(uuid())
-  date      DateTime
-  startTime DateTime
-  endTime   DateTime
-  trainerId String
+  id         String   @id @default(uuid())
+  date       DateTime
+  startTime  DateTime
+  endTime    DateTime
+  trainerId  String
 
-  createdBy String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdBy  String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 
-  trainer  User      @relation("TrainerSchedules", fields: [trainerId], references: [id])
-  bookings Booking[]
-
+  trainer    User      @relation("TrainerSchedules", fields: [trainerId], references: [id])
+  bookings   Booking[]
 
   @@unique([date, startTime])
   @@index([date, startTime, trainerId])
@@ -172,10 +157,9 @@ model Booking {
   scheduleId String
   createdAt  DateTime @default(now())
 
-  trainee  User     @relation("TraineeBookings", fields: [traineeId], references: [id])
-  schedule Schedule @relation(fields: [scheduleId], references: [id])
+  trainee    User     @relation("TraineeBookings", fields: [traineeId], references: [id])
+  schedule   Schedule @relation(fields: [scheduleId], references: [id])
 
- 
   @@unique([traineeId, scheduleId])
   @@map("bookings")
 }
@@ -186,28 +170,27 @@ enum Role {
   TRAINEE
 }
 
-
 ## ⚙️ How to Run Locally
-# 1. Clone the repository
+## 1. Clone the repository
 git clone https://github.com/rifat-sarker/gym-management-server.git
 
-# 2. Navigate to the project
+## 2. Navigate to the project
 cd gym-management-server
 
-# 3. Install dependencies
+## 3. Install dependencies
 bun install
 
-# 4. Setup Environment Variables
+## 4. Setup Environment Variables
 cp .env.example .env
-# fill in your DB connection string
+ fill in your DB connection string
 
-# 5. Migrate Database
+## 5. Migrate Database
 bun run migrate
 
-# 6. Open Prisma Studio (optional)
+## 6. Open Prisma Studio (optional)
 bun run studio
 
-# 7. Start Development Server
+## 7. Start Development Server
 bun dev
 
 
@@ -238,6 +221,7 @@ View & cancel bookings
 
 **Rifat Sarker**  
 🔗 [GitHub Profile](https://github.com/rifat-sarker)  
+🔗 [Portfolio](https://www.rifatsarker.com)  
 📧 rifatswd@gmail.com  
 🌍 Based in: Bangladesh
 
