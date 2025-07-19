@@ -15,24 +15,29 @@ This system allows admins to manage trainers and schedules, trainees to book and
 ## 🧠 Features & Business Rules
 
 ### 🔐 Authentication
+
 - JWT-based access for all users
 - Role-based authorization: Admin, Trainer, Trainee
 
 ### 🗓️ Class Scheduling
+
 - Max 5 schedules per day
 - Each schedule lasts for 2 hours
 - Max 10 trainees per schedule
 
 ### 🧑‍🏫 Admin
+
 - Create/update/delete class schedules
 - Assign trainers
 - Create trainers
 - View all users & schedules
 
 ### 🧍‍♂️ Trainer
+
 - View own class schedules only
 
 ### 🧍 Trainee
+
 - Register & login
 - Book classes if available
 - Cannot book multiple classes at the same time
@@ -51,15 +56,15 @@ This system allows admins to manage trainers and schedules, trainees to book and
 
 ## 🛠️ Technology Stack
 
-| Category       | Technology               |
-|----------------|---------------------------|
-| Language       | TypeScript               |
-| Framework      | Express.js               |
-| ORM            | Prisma                   |
-| Database       | PostgreSQL               |
-| Authentication | JWT                      |
-| Validation     | Zod                      |
-| Hosting        | Vercel                   |
+| Category       | Technology |
+| -------------- | ---------- |
+| Language       | TypeScript |
+| Framework      | Express.js |
+| ORM            | Prisma     |
+| Database       | PostgreSQL |
+| Authentication | JWT        |
+| Validation     | Zod        |
+| Hosting        | Vercel     |
 
 ---
 
@@ -97,6 +102,7 @@ src/
 ```
 
 ## 📡 API Endpoints
+
 🔐 Auth Routes /auth
 
 | Method | Endpoint    | Description           |
@@ -105,6 +111,7 @@ src/
 | POST   | `/login`    | Login for any user    |
 
 ## 👤User Routes /users
+
 | Method | Endpoint          | Role     | Description              |
 | ------ | ----------------- | -------- | ------------------------ |
 | POST   | `/create-trainer` | Admin    | Create a trainer account |
@@ -114,6 +121,7 @@ src/
 | GET    | `/:id`            | Admin    | Get user by ID           |
 
 ## 📅 Schedule Routes /schedules
+
 | Method | Endpoint | Role  | Description             |
 | ------ | -------- | ----- | ----------------------- |
 | POST   | `/`      | Admin | Create a class schedule |
@@ -122,15 +130,14 @@ src/
 | PATCH  | `/:id`   | Admin | Update a schedule       |
 | DELETE | `/:id`   | Admin | Delete a schedule       |
 
-
 ## 📖 Booking Routes /bookings
+
 | Method | Endpoint             | Role    | Description            |
 | ------ | -------------------- | ------- | ---------------------- |
 | GET    | `/`                  | Admin   | Get all bookings       |
 | GET    | `/my-bookings`       | Trainee | View personal bookings |
 | POST   | `/:scheduleId`       | Trainee | Book a schedule        |
 | POST   | `/cancel/:bookingId` | Trainee | Cancel a booking       |
-
 
 ## 🧱 Database Schema (Prisma)
 
@@ -186,32 +193,41 @@ enum Role {
   TRAINER
   TRAINEE
 }
-``` 
+```
+
 ## ⚙️ How to Run Locally
+
 ## 1. Clone the repository
+
 git clone https://github.com/rifat-sarker/gym-management-server.git
 
 ## 2. Navigate to the project
+
 cd gym-management-server
 
 ## 3. Install dependencies
+
 bun install
 
 ## 4. Setup Environment Variables
+
 cp .env.example .env
- fill in your DB connection string
+fill in your DB connection string
 
 ## 5. Migrate Database
+
 bun run migrate
 
 ## 6. Open Prisma Studio (optional)
+
 bun run studio
 
 ## 7. Start Development Server
+
 bun dev
 
-
 ## 🧪 Testing Instructions
+
 ✅ Admin
 Login as Admin using credentials
 
@@ -233,6 +249,9 @@ Book class using /bookings/:scheduleId
 
 View & cancel bookings
 
+## 🔗 Postman Collection
+
+**[https://drive.google.com/file/d/1rUMEaxK3qcuf1z8DbtvQmrIls9A_7PVt/view?usp=drive_link](https://drive.google.com/file/d/1rUMEaxK3qcuf1z8DbtvQmrIls9A_7PVt/view?usp=drive_link)**
 
 ## ✍️ Author
 
@@ -241,23 +260,3 @@ View & cancel bookings
 🔗 [Portfolio](https://www.rifatsarker.com)  
 📧 rifatswd@gmail.com  
 🌍 Based in: Bangladesh
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
