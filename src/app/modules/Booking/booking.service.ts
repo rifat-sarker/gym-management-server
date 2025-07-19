@@ -1,6 +1,7 @@
 import httpStatus from "http-status";
 import AppError from "../../errors/AppError";
 import prisma from "../../utils/prisma";
+import tr from "zod/v4/locales/tr.cjs";
 
 const MAX_TRAINEES_PER_SCHEDULE = 10;
 
@@ -56,16 +57,53 @@ const bookScheduleIntoDB = async (traineeId: string, scheduleId: string) => {
     );
   }
 
-  const booking = await prisma.booking.create({
+  const result = await prisma.booking.create({
     data: {
       traineeId,
       scheduleId,
     },
   });
 
-  return booking;
+  return result;
+};
+
+const getAllBookings = async () => {
+  const result = await prisma.booking.findMany();
+  return result;
+};
+
+const cancelBookingIntoDB = async (traineeId: string, bookingId: string) => {
+  const booking = await prisma.booking.findUnique({
+    where: { id: bookingId },
+    include: { schedule: true },
+  });
+
+  if (!booking) {
+    throw new AppError(httpStatus.NOT_FOUND, "Booking not found");
+  }
+
+  if (booking.traineeId !== traineeId) {
+    throw new AppError(
+      httpStatus.FORBIDDEN,
+      "Not authorized to cancel this booking"
+    );
+  }
+
+  const result = await prisma.booking.delete({ where: { id: bookingId } });
+  return result;
+};
+
+const myBookingsIntoDB = async (traineeId: string) => {
+  const bookings = await prisma.booking.findMany({
+    where: { traineeId },
+    include: { schedule: true },
+  });
+  return bookings;
 };
 
 export const BookingService = {
   bookScheduleIntoDB,
+  cancelBookingIntoDB,
+  getAllBookings,
+  myBookingsIntoDB,
 };

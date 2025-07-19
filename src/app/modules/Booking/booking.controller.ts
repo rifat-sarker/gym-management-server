@@ -17,6 +17,47 @@ const bookSchedule = catchAsync(async (req, res) => {
   });
 });
 
+const cancelBooking = catchAsync(async (req, res) => {
+  const traineeId = req.user.id;
+  const { bookingId } = req.params;
+
+  await BookingService.cancelBookingIntoDB(traineeId, bookingId);
+
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: "Booking cancelled successfully",
+    data: null,
+  });
+});
+
+const getAllBookings = catchAsync(async (req, res) => {
+  const result = await BookingService.getAllBookings();
+
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: "Bookings retrieved successfully",
+    data: result,
+  });
+});
+
+
+const myBookings = catchAsync(async (req, res) => {
+  const traineeId = req.user.id;
+  const result = await BookingService.myBookingsIntoDB(traineeId);
+
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: "My bookings retrieved successfully",
+    data: result,
+  });
+});
+
 export const BookingController = {
   bookSchedule,
+  cancelBooking,
+  getAllBookings,
+  myBookings,
 };
