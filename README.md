@@ -63,10 +63,27 @@ This system allows admins to manage trainers and schedules, trainees to book and
 
 ---
 
-## 🗂️ Project Structure
+## 📁 Project Structure
 
-<pre> ## 📁 Project Structure ```bash src/ ├── app/ │ ├── config/ │ ├── errors/ │ ├── middlewares/ │ ├── modules/ │ │ ├── Auth/ │ │ ├── Booking/ │ │ ├── Schedule/ │ │ └── User/ │ ├── routes/ │ ├── types/ │ └── utils/ ├── prisma/ ├── dist/ ├── .vercel/ ``` </pre>
+```bash
+src/
+├── app/
+│   ├── config/
+│   ├── errors/
+│   ├── middlewares/
+│   ├── modules/
+│   │   ├── Auth/
+│   │   ├── Booking/
+│   │   ├── Schedule/
+│   │   └── User/
+│   ├── routes/
+│   ├── types/
+│   └── utils/
+├── prisma/
+├── dist/
+├── .vercel/
 
+```
 
 ---
 
@@ -169,7 +186,7 @@ enum Role {
   TRAINER
   TRAINEE
 }
-
+``` 
 ## ⚙️ How to Run Locally
 ## 1. Clone the repository
 git clone https://github.com/rifat-sarker/gym-management-server.git
